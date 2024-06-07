@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://crfhdvyx37k4l"]
+[gd_scene load_steps=12 format=3 uid="uid://crfhdvyx37k4l"]
 
 [ext_resource type="PackedScene" uid="uid://ckqnc7de1cowb" path="res://scenes/player.tscn" id="1_lf4gd"]
 [ext_resource type="Texture2D" uid="uid://dkibm5s2n7u55" path="res://assets/sprites/world_tileset.png" id="2_4t6hc"]
 [ext_resource type="PackedScene" uid="uid://bhextbmbag1dc" path="res://scenes/platform.tscn" id="3_dgmmi"]
+[ext_resource type="PackedScene" uid="uid://dyfa4sohcljml" path="res://scenes/coin.tscn" id="4_d2fiq"]
+[ext_resource type="PackedScene" uid="uid://dtif4i3ttw1p3" path="res://scenes/killzone.tscn" id="5_wjgd2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_olpom"]
 texture = ExtResource("2_4t6hc")
@@ -443,6 +445,8 @@ _data = {
 "move": SubResource("Animation_kb4a0")
 }
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_brihy"]
+
 [node name="Game" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -456,6 +460,8 @@ position = Vector2(0, 7)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -8)
 zoom = Vector2(4, 4)
+limit_bottom = 90
+limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Platform" parent="." instance=ExtResource("3_dgmmi")]
@@ -469,3 +475,24 @@ libraries = {
 "": SubResource("AnimationLibrary_puh60")
 }
 autoplay = "move"
+
+[node name="Coin" parent="." instance=ExtResource("4_d2fiq")]
+position = Vector2(184, 37)
+
+[node name="Coin2" parent="." instance=ExtResource("4_d2fiq")]
+position = Vector2(200, 37)
+
+[node name="Coin3" parent="." instance=ExtResource("4_d2fiq")]
+position = Vector2(40, 37)
+
+[node name="Coin4" parent="." instance=ExtResource("4_d2fiq")]
+position = Vector2(57, -77)
+
+[node name="Coin5" parent="." instance=ExtResource("4_d2fiq")]
+position = Vector2(456, 2)
+
+[node name="Killzone" parent="." instance=ExtResource("5_wjgd2")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 124)
+shape = SubResource("WorldBoundaryShape2D_brihy")
