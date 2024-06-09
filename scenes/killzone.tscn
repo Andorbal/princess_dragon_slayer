@@ -1,6 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtif4i3ttw1p3"]
+[gd_scene load_steps=6 format=3 uid="uid://dtif4i3ttw1p3"]
 
 [ext_resource type="Script" path="res://scripts/killzone.gd" id="1_sfv3e"]
+
+[sub_resource type="CurveTexture" id="CurveTexture_kfqq1"]
+
+[sub_resource type="Gradient" id="Gradient_xk70b"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.438525, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0.792157, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v44r0"]
+gradient = SubResource("Gradient_xk70b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_foxeb"]
+particle_flag_disable_z = true
+angle_max = 360.0
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 1000.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+color = Color(1, 0, 0, 1)
+color_ramp = SubResource("GradientTexture1D_v44r0")
+alpha_curve = SubResource("CurveTexture_kfqq1")
+turbulence_enabled = true
 
 [node name="Killzone" type="Area2D"]
 collision_mask = 2
@@ -9,6 +31,16 @@ script = ExtResource("1_sfv3e")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.6
 one_shot = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 75
+process_material = SubResource("ParticleProcessMaterial_foxeb")
+one_shot = true
+explosiveness = 1.0
+trail_enabled = true
+trail_sections = 2
+trail_section_subdivisions = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

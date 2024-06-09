@@ -1,10 +1,11 @@
 extends Area2D
 
 @onready var timer = $Timer
-
+@onready var particles = $GPUParticles2D
 
 func _on_body_entered(body):
-	print("You died!")
+	particles.global_position = body.global_position
+	particles.emitting = true
 	Engine.time_scale = 0.5
 	body.get_node("CollisionShape2D").queue_free()
 	timer.start()
