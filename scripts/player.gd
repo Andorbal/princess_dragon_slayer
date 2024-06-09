@@ -13,17 +13,17 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_falling = true
 var coyote_time = 0;
 
+
 func _physics_process(delta):
 	# Add the gravity.
 	if is_on_floor():
 		is_falling = false
+	elif is_falling or coyote_time > COYOTE_LENGTH:
+		is_falling = true
+		coyote_time = 0
+		velocity.y += gravity * delta
 	else:
-		if is_falling or coyote_time > COYOTE_LENGTH:
-			is_falling = true
-			coyote_time = 0
-			velocity.y += gravity * delta
-		else:
-			coyote_time += delta
+		coyote_time += delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and not is_falling:
