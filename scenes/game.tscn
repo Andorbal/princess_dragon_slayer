@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://crfhdvyx37k4l"]
+[gd_scene load_steps=14 format=3 uid="uid://crfhdvyx37k4l"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_1nm2w"]
 [ext_resource type="PackedScene" uid="uid://ckqnc7de1cowb" path="res://scenes/player.tscn" id="1_lf4gd"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dtif4i3ttw1p3" path="res://scenes/killzone.tscn" id="5_wjgd2"]
 [ext_resource type="PackedScene" uid="uid://h7gqi2bf5lco" path="res://scenes/slime.tscn" id="6_oivq7"]
 [ext_resource type="FontFile" uid="uid://cuhifr2vs8hyi" path="res://assets/fonts/PixelOperator8.ttf" id="7_13eb7"]
+[ext_resource type="Script" path="res://scripts/editor/platform_position.gd" id="8_vfg3t"]
 [ext_resource type="FontFile" uid="uid://cumu6nf6aava7" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="9_v5302"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_olpom"]
@@ -413,44 +414,6 @@ sources/0 = SubResource("TileSetAtlasSource_olpom")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_brihy"]
 
-[sub_resource type="Animation" id="Animation_kb4a0"]
-resource_name = "move"
-length = 1.5
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(336, 21), Vector2(432, 21)]
-}
-
-[sub_resource type="Animation" id="Animation_5mny1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(336, 21)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_puh60"]
-_data = {
-"RESET": SubResource("Animation_5mny1"),
-"move": SubResource("Animation_kb4a0")
-}
-
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" type="Node" parent="."]
@@ -519,22 +482,51 @@ position = Vector2(734, -55)
 [node name="Coin8" parent="Coins" instance=ExtResource("4_d2fiq")]
 position = Vector2(753, -56)
 
+[node name="Coin10" parent="Coins" instance=ExtResource("4_d2fiq")]
+position = Vector2(867, 11)
+
 [node name="Coin9" parent="Coins" instance=ExtResource("4_d2fiq")]
 position = Vector2(561, -139)
 
 [node name="Platforms" type="Node" parent="."]
 
 [node name="Platform" parent="Platforms" instance=ExtResource("3_dgmmi")]
-position = Vector2(3, -21)
+position = Vector2(0, -21)
 
 [node name="Platform2" parent="Platforms" instance=ExtResource("3_dgmmi")]
-position = Vector2(336, 21)
+position = Vector2(376, 21)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform2"]
-libraries = {
-"": SubResource("AnimationLibrary_puh60")
-}
-autoplay = "move"
+[node name="Left" type="Node2D" parent="Platforms/Platform2"]
+position = Vector2(-56, -4)
+script = ExtResource("8_vfg3t")
+
+[node name="Right" type="Node2D" parent="Platforms/Platform2"]
+position = Vector2(71, -4)
+script = ExtResource("8_vfg3t")
+alignment = 2
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("3_dgmmi")]
+position = Vector2(697, 46)
+speed = 0.25
+
+[node name="First" type="Node2D" parent="Platforms/Platform3"]
+position = Vector2(-54, 19)
+script = ExtResource("8_vfg3t")
+
+[node name="Second" type="Node2D" parent="Platforms/Platform3"]
+position = Vector2(181, -23)
+script = ExtResource("8_vfg3t")
+alignment = 2
+
+[node name="Third" type="Node2D" parent="Platforms/Platform3"]
+position = Vector2(173, -142)
+script = ExtResource("8_vfg3t")
+alignment = 2
+
+[node name="Fourth" type="Node2D" parent="Platforms/Platform3"]
+position = Vector2(35, -184)
+script = ExtResource("8_vfg3t")
+alignment = 2
 
 [node name="Slime" parent="." instance=ExtResource("6_oivq7")]
 position = Vector2(497, 48)
