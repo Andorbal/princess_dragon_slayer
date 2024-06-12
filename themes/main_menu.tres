@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://baq0yljbqhdwl"]
+
+[ext_resource type="FontFile" uid="uid://cumu6nf6aava7" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_kw0yg"]
+[ext_resource type="FontFile" uid="uid://cuhifr2vs8hyi" path="res://assets/fonts/PixelOperator8.ttf" id="2_mdhho"]
+
+[resource]
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("2_mdhho")
+HeaderLarge/base_type = &"Label"
+HeaderLarge/font_sizes/font_size = 48
+HeaderLarge/fonts/font = ExtResource("1_kw0yg")
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/fonts/font = ExtResource("2_mdhho")
