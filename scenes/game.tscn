@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://crfhdvyx37k4l"]
+[gd_scene load_steps=15 format=3 uid="uid://crfhdvyx37k4l"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_1nm2w"]
 [ext_resource type="PackedScene" uid="uid://ckqnc7de1cowb" path="res://scenes/player.tscn" id="1_lf4gd"]
@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://cuhifr2vs8hyi" path="res://assets/fonts/PixelOperator8.ttf" id="7_13eb7"]
 [ext_resource type="Script" path="res://scripts/editor/platform_position.gd" id="8_vfg3t"]
 [ext_resource type="FontFile" uid="uid://cumu6nf6aava7" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="9_v5302"]
+[ext_resource type="PackedScene" uid="uid://btmbwr7c7l4j1" path="res://scenes/pause_menu.tscn" id="11_ub5r3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_olpom"]
 texture = ExtResource("2_4t6hc")
@@ -418,6 +419,7 @@ sources/0 = SubResource("TileSetAtlasSource_olpom")
 
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
+process_mode = 3
 script = ExtResource("1_1nm2w")
 
 [node name="ScoreLabel" type="Label" parent="GameManager"]
@@ -572,3 +574,14 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("7_13eb7")
 theme_override_font_sizes/font_size = 8
 text = "You made it!!"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+offset = Vector2(2.08165e-12, 2.08165e-12)
+transform = Transform2D(1, 0, 0, 1, 2.08165e-12, 2.08165e-12)
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("11_ub5r3")]
+process_mode = 2
+visible = false
+
+[connection signal="quit_game" from="CanvasLayer/PauseMenu" to="GameManager" method="_on_pause_menu_quit_game"]
+[connection signal="resume_game" from="CanvasLayer/PauseMenu" to="GameManager" method="_on_pause_menu_resume_game"]
